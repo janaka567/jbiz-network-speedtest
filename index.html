@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J Biz - Network Speedtest</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="top-bar">
+        <div class="logo">J Biz - <span class="video-color">Network Speedtest</span></div>
+    </header>
+
+    <div class="main-container">
+        
+        <div class="results-bar">
+            <div class="result-box">
+                <span class="label">PING ms</span>
+                <span class="value" id="pingValue">--</span>
+            </div>
+            <div class="result-box">
+                <span class="label"><span class="icon dl-icon">↓</span> DOWNLOAD Mbps</span>
+                <span class="value dl-color" id="dlValue">--</span>
+            </div>
+            <div class="result-box">
+                <span class="label"><span class="icon ul-icon">↑</span> UPLOAD Mbps</span>
+                <span class="value ul-color" id="ulValue">--</span>
+            </div>
+        </div>
+
+        <div class="meter-section">
+            <div class="gauge-container">
+                <svg class="gauge" viewBox="0 0 250 250">
+                    <circle class="gauge-bg" cx="125" cy="125" r="110"></circle>
+                    <circle class="gauge-progress" id="gaugeProgress" cx="125" cy="125" r="110"></circle>
+                </svg>
+                <button class="go-btn" id="goBtn" onclick="startTest()">GO</button>
+                <div class="live-speed-display" id="liveSpeedText" style="display: none;">
+                    <span id="liveSpeedValue">0.0</span>
+                    <span class="live-unit">Mbps</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="options-section">
+            <div class="option-group">
+                <span class="opt-label">Connections</span>
+                <select id="connType" class="opt-select">
+                    <option value="multi">Multi</option>
+                    <option value="single">Single</option>
+                </select>
+            </div>
+            <div class="option-group">
+                <button class="test-again-btn" id="testAgainBtn" onclick="resetTest()" style="display: none;">TEST AGAIN</button>
+            </div>
+        </div>
+
+        <div class="features-section">
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3 class="feature-title">Ultra Fast Servers</h3>
+                <p class="feature-desc">Test your internet speed with our high-performance global server network for instantaneous results.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">High Accuracy</h3>
+                <p class="feature-desc">Powered by advanced multi-threading technology to accurately measure the maximum capacity of your connection.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3 class="feature-title">100% Secure</h3>
+                <p class="feature-desc">Your privacy matters. We do not store any user data, ensuring a completely safe and secure testing environment.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="site-footer">
+        © 2026 J Biz Global Technology. All Rights Reserved.
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
