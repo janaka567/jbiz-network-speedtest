@@ -9,7 +9,8 @@ const ui = {
     liveSpeedDisplay: document.getElementById('liveSpeedText'),
     liveSpeedValue: document.getElementById('liveSpeedValue'),
     testAgainBtn: document.getElementById('testAgainBtn'),
-    connType: document.getElementById('connType')
+    connType: document.getElementById('connType'),
+    gaugeNeedle: document.getElementById('gaugeNeedle')
 };
 
 const maxDashOffset = 691; 
@@ -31,6 +32,10 @@ function updateGauge(speedMbps, color) {
     let offset = maxDashOffset - (maxDashOffset * fillPercentage);
     ui.gaugeProgress.style.strokeDashoffset = offset;
     ui.liveSpeedValue.innerText = parseFloat(speedMbps).toFixed(1);
+    
+    // කටුව කරකැවීම (Needle rotation)
+    const rotation = (fillPercentage * 180) - 90; 
+    if(ui.gaugeNeedle) ui.gaugeNeedle.style.transform = `rotate(${rotation}deg)`;
 }
 
 async function startTest() {
@@ -67,8 +72,8 @@ async function measurePing() {
 
 function measureDownloadLive(isMulti) {
     return new Promise((resolve) => {
-        const threads = isMulti ? 4 : 1; 
-        const dlSize = 25 * 1024 * 1024; 
+        const threads = isMulti ? 8 : 1; 
+        const dlSize = 100 * 1024 * 1024; // 100MB
         let loadedPerThread = new Array(threads).fill(0);
         let isDone = false;
         const xhrs = [];
@@ -79,7 +84,7 @@ function measureDownloadLive(isMulti) {
             xhrs.forEach(xhr => xhr.abort());
             clearInterval(uiInterval);
             resolve();
-        }, 12000); 
+        }, 20000); // තත්පර 20
 
         const uiInterval = setInterval(() => {
             if (isDone) return;
@@ -118,7 +123,7 @@ function measureDownloadLive(isMulti) {
 
 function measureUploadLive() {
     return new Promise((resolve) => {
-        const ulDataSize = 2 * 1024 * 1024; 
+        const ulDataSize = 50 * 1024 * 1024; // 50MB
         const data = new Uint8Array(ulDataSize);
         for(let i=0; i<data.length; i++) data[i] = Math.random() * 255;
         const blob = new Blob([data]);
@@ -129,7 +134,7 @@ function measureUploadLive() {
         const timeoutId = setTimeout(() => {
             xhr.abort();
             resolve();
-        }, 12000);
+        }, 20000); // තත්පර 20
         
         xhr.open('POST', serverEndpoint, true);
         
